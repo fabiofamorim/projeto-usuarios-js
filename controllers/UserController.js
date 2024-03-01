@@ -157,7 +157,7 @@ class UserController {
             let json = JSON.parse(tr.dataset.user);
 
             for (let name in json){
-            
+                document.querySelector('#box-user-update')
             
             }
 
