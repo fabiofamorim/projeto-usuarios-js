@@ -50,7 +50,15 @@ class User {
 
         for (let name in json){
 
-            this[name] = json[name];
+            switch(name) {
+
+                case '_register':
+                    this[name] = new Date(json[name]);
+                break;
+                default:
+                    this[name] = json[name];
+            }
+
         }
     }
 }

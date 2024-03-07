@@ -8,6 +8,7 @@ class UserController {
 
         this.onSubmit();
         this.onEdit();
+        this.selectAll();
 
     }
 
@@ -100,6 +101,8 @@ class UserController {
                 (content) => {
 
                     values.photo = content;
+
+                    this.insert(values);
 
                     this.addLine(values);
 
@@ -206,11 +209,11 @@ class UserController {
     
     getUsersStorage(){
 
-        let users [];
+        let users = [];
 
-        if (sessionStorage.getItem("users")) {
+        if (localStorage.getItem("users")) {
 
-            users = JSON.parse(sessionStorage.getItem("users"));
+            users = JSON.parse(localStorage.getItem("users"));
         }
         return users;
 
@@ -238,13 +241,14 @@ class UserController {
 
         users.push(data);
 
-        sessionStorage.setItem("users", JSON.stringify(users));
+        // sessionStorage.setItem("users", JSON.stringify(users));
+        // não guardar dados sigilosos no localStorage ou sessionStorage(ex: senhas)
+        localStorage.setItem("users", JSON.stringify(users));
     };
     
     addLine(dataUser) {
 
         let tr = document.createElement('tr');
-        this.insert(dataUser);
 
         tr.dataset.user = JSON.stringify(dataUser);
 
