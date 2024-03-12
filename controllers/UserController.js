@@ -93,6 +93,7 @@ class UserController {
                     values.photo = content;
 
                     values.save();
+
                     this.addLine(values);
 
                     this.formEl.reset();
@@ -196,23 +197,11 @@ class UserController {
 
     }
 
-    getUsersStorage () {
-
-        let users = [];
-
-        if (localStorage.getItem("users")) {
-
-            users = JSON.parse(localStorage.getItem("users"));
-
-        }
-
-        return users
-
-    }
+    
 
     selectAll() {
        
-        let users = this.getUsersStorage();
+        let users = User.getUsersStorage();
         
         users.forEach(dataUser => {
 
@@ -222,7 +211,7 @@ class UserController {
         
             this.addLine(user);
 
-        })
+        });
 
     }
     
@@ -265,6 +254,12 @@ class UserController {
         tr.querySelector(".btn-delete").addEventListener("click", (e) => {
 
             if(confirm("Deseja relamente excluir?")) {
+
+                let user = new User();
+
+                user.loadFromJSON(JSON.parse(tr.dataset.user));
+
+                user.remove();
 
                 tr.remove();
 
